@@ -52,7 +52,18 @@ public class FuncionarioControllerRest {
 	 */
 	@PostMapping(FuncionarioUri.FUNCIONARIO_CREATE)
 	public Funcionario createFuncionario(@RequestBody Funcionario funcionario) {
-		return funcionarioRepository.save(funcionario);
+		
+		Funcionario funcionarioCreate = new Funcionario();
+		
+		if(funcionario != null) {
+			funcionarioCreate.setFirstName(funcionario.getFirstName());
+			funcionarioCreate.setLastName(funcionario.getLastName());
+			funcionarioCreate.setEmailId(funcionario.getEmailId());
+			funcionarioCreate.setDataCriacao(funcionario.getDataCriacao());
+			funcionarioCreate.setDataUpate(funcionario.getDataUpate());
+		}
+		
+		return funcionarioRepository.save(funcionarioCreate);
 	}
 
 	/**
@@ -68,9 +79,10 @@ public class FuncionarioControllerRest {
 		Funcionario funcionarioUpdate = funcionarioRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Funcionario inexistente com id: " + id));
 
-		funcionarioUpdate.setFirstName(funcionarioDetalhes.getFirstname());
+		funcionarioUpdate.setFirstName(funcionarioDetalhes.getFirstName());
 		funcionarioUpdate.setLastName(funcionarioDetalhes.getLastName());
 		funcionarioUpdate.setEmailId(funcionarioDetalhes.getEmailId());
+		funcionarioUpdate.setDataUpate(funcionarioDetalhes.getDataUpate());
 
 		funcionarioRepository.save(funcionarioUpdate);
 
