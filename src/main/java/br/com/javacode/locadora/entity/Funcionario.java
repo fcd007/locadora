@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class Funcionario {
 	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
 	
 	@Column(name = "fun_first_name", nullable = true,  length = 128)
@@ -42,6 +44,7 @@ public class Funcionario {
 	@Column(name = "dat_create")
 	private Date dataCriacao;
 	
+	@UpdateTimestamp
 	@Column(name = "dat_update")
 	private Date dataUpate;
 	
