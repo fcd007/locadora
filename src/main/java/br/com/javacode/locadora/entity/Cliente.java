@@ -31,10 +31,10 @@ public class Cliente {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "cli_nome", nullable = true, length = 255)
+	@Column(name = "cli_nome", nullable = true, length = 128)
 	private String nome;
 
-	@Column(name = "cli_nome_empresa", nullable = true, length = 255)
+	@Column(name = "cli_nome_empresa", nullable = true, length = 128)
 	private String nomeEmpresa;
 
 	@Column(name = "cli_endereco", nullable = true, length = 255)

@@ -34,7 +34,7 @@ public class Funcionario {
 	@Column(name = "fun_first_name", nullable = true,  length = 128)
 	private String firstName;
 	
-	@Column(name = "fun_last_name", nullable = true,  length = 255)
+	@Column(name = "fun_last_name", nullable = true,  length = 128)
 	private String lastName;
 	
 	@Column(name = "fun_email_id", nullable = true,  length = 64)

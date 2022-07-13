@@ -65,7 +65,7 @@ public class Locacao {
 	private Veiculo veiculo;    
     // one to many unidirectional mapping
     // default fetch type for OneToMany: LAZY
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "loc_cliente_id", referencedColumnName = "id")
 	private Cliente cliente;
     
