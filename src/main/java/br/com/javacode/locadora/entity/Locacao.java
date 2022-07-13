@@ -68,6 +68,10 @@ public class Locacao {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "loc_cliente_id", referencedColumnName = "id")
 	private Cliente cliente;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "loc_devolucao_id", referencedColumnName = "id")
+    Devolucao devolucao;
 
 	@CreationTimestamp
 	@Column(name = "dat_create")
