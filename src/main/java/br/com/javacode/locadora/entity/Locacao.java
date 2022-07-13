@@ -5,10 +5,12 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -60,7 +62,12 @@ public class Locacao {
 	 // Unidirectional
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "loc_veiculo_id", referencedColumnName = "id")
-	private Veiculo veiculo;
+	private Veiculo veiculo;    
+    // one to many unidirectional mapping
+    // default fetch type for OneToMany: LAZY
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "loc_cliente_id", referencedColumnName = "id")
+	private Cliente cliente;
 
 	@CreationTimestamp
 	@Column(name = "dat_create")
