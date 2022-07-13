@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,22 +29,23 @@ public class Funcionario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "firstName")
+	@Column(name = "fun_first_name", nullable = true,  length = 128)
 	private String firstName;
 	
-	@Column(name = "lastName")
+	@Column(name = "fun_last_name", nullable = true,  length = 255)
 	private String lastName;
 	
-	@Column(name = "email_id")
+	@Column(name = "fun_email_id", nullable = true,  length = 64)
 	private String emailId;
-		
-	@Column(name = "date_create")
+	
+	@CreationTimestamp
+	@Column(name = "dat_create")
 	private Date dataCriacao;
 	
-	@Column(name = "date_update")
+	@Column(name = "dat_update")
 	private Date dataUpate;
 	
 	@Version
-	@Column(name = "version")
+	@Column(name = "nro_version")
 	private Long versao;
 }
