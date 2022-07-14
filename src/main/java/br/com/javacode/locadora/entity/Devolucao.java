@@ -4,11 +4,14 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.javacode.locadora.enuns.EstadoVeiculoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +36,6 @@ public class Devolucao {
 	@Column(name = "dev_quilometragem_devolucao")
 	private Integer quilometragemDevolucao;
 
-	@Column(name = "dev_estado_veiculo", length = 1)
-	private String estadoVeiculo;
+	@Enumerated(EnumType.STRING)
+	private EstadoVeiculoEnum devEstadoVeiculo;
 }

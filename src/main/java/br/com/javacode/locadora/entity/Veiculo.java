@@ -31,39 +31,39 @@ public class Veiculo {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "vei_placa", nullable = true,  length = 32)
+	@Column(name = "vei_placa", nullable = true, length = 32)
 	private String placa;
 
-	@Column(name = "vei_cor", nullable = true,  length = 32)
+	@Column(name = "vei_cor", nullable = true, length = 32)
 	private String cor;
 
-	@Column(name = "vei_ano_fabricacao", nullable = true,  length = 10)
+	@Column(name = "vei_ano_fabricacao", nullable = true, length = 10)
 	private String anoFabricacao;
 
-	@Column(name = "vei_modelo", nullable = true,  length = 64)
+	@Column(name = "vei_modelo", nullable = true, length = 64)
 	private String modeloDescricao;
 
-	@Column(name = "vei_marca", nullable = true,  length = 64)
+	@Column(name = "vei_marca", nullable = true, length = 64)
 	private String marcaDescricao;
 
-	@Column(name = "vei_combustivel", nullable = true,  length = 64)
+	@Column(name = "vei_combustivel", nullable = true, length = 64)
 	private String combusivel;
 
 	@Column(name = "vei_num_portas")
 	private Integer numPortas;
 
-	@Column(name = "vei_quilometragem", nullable = true,  length = 64)
-	private String quilometragem;
+	@Column(name = "vei_quilometragem", nullable = true, length = 64)
+	private Integer quilometragem;
 
-	@Column(name = "vei_renavam", nullable = true,  length = 64)
+	@Column(name = "vei_renavam", nullable = true, length = 64)
 	private String renavam;
 
-	@Column(name = "vei_chassi", nullable = true,  length = 64)
+	@Column(name = "vei_chassi", nullable = true, length = 64)
 	private String chassi;
 
 	@Column(name = "vei_valor_locacao")
 	private Long valorLocacao;
-	
+
 	@CreationTimestamp
 	@Column(name = "dat_create")
 	private Date dataCriacao;

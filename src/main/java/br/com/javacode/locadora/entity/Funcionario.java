@@ -23,31 +23,31 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(schema = "locadoradb", name= "funcionarios")
+@Table(schema = "locadoradb", name = "funcionarios")
 public class Funcionario {
-	
-	@Id 
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
-	@Column(name = "fun_first_name", nullable = true,  length = 128)
+
+	@Column(name = "fun_first_name", nullable = true, length = 128)
 	private String firstName;
-	
-	@Column(name = "fun_last_name", nullable = true,  length = 128)
+
+	@Column(name = "fun_last_name", nullable = true, length = 128)
 	private String lastName;
-	
-	@Column(name = "fun_email_id", nullable = true,  length = 64)
+
+	@Column(name = "fun_email_id", nullable = true, length = 64)
 	private String emailId;
-	
+
 	@CreationTimestamp
 	@Column(name = "dat_create")
 	private Date dataCriacao;
-	
+
 	@UpdateTimestamp
 	@Column(name = "dat_update")
 	private Date dataUpate;
-	
+
 	@Version
 	@Column(name = "nro_version")
 	private Long versao;

@@ -36,7 +36,7 @@ public class FuncionarioControllerRest {
 	 * @param recebe Long id
 	 * @return retorna entidade Funcionario
 	 */
-	@GetMapping(FuncionarioUri.FUNCIONARIOS_FIND_BY_ID)
+	@GetMapping(FuncionarioUri.FUNCIONARIO_FIND_BY_ID)
 	public ResponseEntity<Funcionario> getFuncionarioId(@PathVariable Long id) {
 		Funcionario funcionario = funcionarioRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Funcionario inexistente com id: " + id));
@@ -82,7 +82,6 @@ public class FuncionarioControllerRest {
 		funcionarioUpdate.setFirstName(funcionarioDetalhes.getFirstName());
 		funcionarioUpdate.setLastName(funcionarioDetalhes.getLastName());
 		funcionarioUpdate.setEmailId(funcionarioDetalhes.getEmailId());
-		funcionarioUpdate.setDataUpate(funcionarioDetalhes.getDataUpate());
 
 		funcionarioRepository.save(funcionarioUpdate);
 
@@ -94,7 +93,7 @@ public class FuncionarioControllerRest {
 	 * @param Long id
 	 * @return HttpStatus
 	 */
-	@DeleteMapping(FuncionarioUri.FUNCIONARIOS_DELETE)
+	@DeleteMapping(FuncionarioUri.FUNCIONARIO_DELETE)
 	public ResponseEntity<HttpStatus> deleteFuncionario(@PathVariable Long id) {
 		Funcionario funcionario = funcionarioRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Funcionario inexistente com o id: " + id));

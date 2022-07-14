@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,8 @@ import javax.persistence.Version;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import br.com.javacode.locadora.enuns.ClienteTipoEnum;
+import br.com.javacode.locadora.enuns.SexoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,8 +50,8 @@ public class Cliente {
 	@Column(name = "cli_email", nullable = true, length = 128)
 	private String email;
 
-	@Column(name = "cli_tipo_cliente", nullable = true, length = 1)
-	private String tipoCliente; // criar um enum
+	@Enumerated(EnumType.STRING)
+	private ClienteTipoEnum cliTipoCliente;
 
 	@Column(name = "cli_cnpj", nullable = true, unique = true, length = 14)
 	private String CNPJ;
@@ -58,8 +62,8 @@ public class Cliente {
 	@Column(name = "cli_dat_nascimento", nullable = true)
 	private Date dataNacimento;
 
-	@Column(name = "cli_sexo", nullable = true,  length = 1)
-	private String sexo; // criar um enum
+	@Enumerated(EnumType.STRING)
+	private SexoEnum cliSexo;
 
 	@Column(name = "cli_idade", nullable = true)
 	private Integer idade;

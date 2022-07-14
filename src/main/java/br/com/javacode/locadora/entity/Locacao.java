@@ -31,11 +31,11 @@ import lombok.Setter;
 @Table(schema = "locadoradb", name = "locacoes")
 public class Locacao {
 
-	@Id 
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
+
 	@Column(name = "loc_data_hora_locacao")
 	private Date dataHoraLocacao;
 
@@ -59,19 +59,19 @@ public class Locacao {
 
 	@Column(name = "loc_status_locacao", length = 1)
 	private String statusLocacao;
-	 // Unidirectional
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "loc_veiculo_id", referencedColumnName = "id")
-	private Veiculo veiculo;    
-    // one to many unidirectional mapping
-    // default fetch type for OneToMany: LAZY
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "loc_cliente_id", referencedColumnName = "id")
+	// Unidirectional
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "loc_veiculo_id", referencedColumnName = "id")
+	private Veiculo veiculo;
+	// one to many unidirectional mapping
+	// default fetch type for OneToMany: LAZY
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "loc_cliente_id", referencedColumnName = "id")
 	private Cliente cliente;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "loc_devolucao_id", referencedColumnName = "id")
-    Devolucao devolucao;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "loc_devolucao_id", referencedColumnName = "id")
+	Devolucao devolucao;
 
 	@CreationTimestamp
 	@Column(name = "dat_create")
