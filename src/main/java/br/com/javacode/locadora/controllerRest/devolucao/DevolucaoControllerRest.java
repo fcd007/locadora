@@ -1,4 +1,4 @@
-package br.com.javacode.locadora.controllerRest;
+package br.com.javacode.locadora.controllerRest.devolucao;
 
 import java.util.List;
 

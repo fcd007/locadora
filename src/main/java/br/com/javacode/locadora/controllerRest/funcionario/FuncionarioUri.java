@@ -1,4 +1,4 @@
-package br.com.javacode.locadora.controllerRest;
+package br.com.javacode.locadora.controllerRest.funcionario;
 
 import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.stereotype.Component;
