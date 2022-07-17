@@ -71,7 +71,7 @@ public class Locacao {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "loc_devolucao_id", referencedColumnName = "id")
-	Devolucao devolucao;
+	private Devolucao devolucao;
 
 	@CreationTimestamp
 	@Column(name = "dat_create")

@@ -32,6 +32,6 @@ public class LocacaoDTOV1 {
 
 	private Cliente cliente;
 
-	Devolucao devolucao;
+	private Devolucao devolucao;
 
 }

@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.javacode.locadora.entity.Funcionario;
-import br.com.javacode.locadora.exception.ResourceNotFoundException;
-import br.com.javacode.locadora.repository.FuncionarioRepository;
+import br.com.javacode.locadora.service.funcionario.FuncionarioService;
 
 @CrossOrigin("*")
 @RestController
@@ -25,11 +24,11 @@ import br.com.javacode.locadora.repository.FuncionarioRepository;
 public class FuncionarioControllerRest {
 
 	@Autowired
-	private FuncionarioRepository funcionarioRepository;
+	FuncionarioService funcionarioService;
 
 	@GetMapping(FuncionarioUri.FUNCIONARIOS_FIND_ALL)
 	public List<Funcionario> getAllFuncionarios() {
-		return funcionarioRepository.findAll();
+		return funcionarioService.getAllFuncionarios();
 	}
 
 	/**
@@ -38,8 +37,8 @@ public class FuncionarioControllerRest {
 	 */
 	@GetMapping(FuncionarioUri.FUNCIONARIO_FIND_BY_ID)
 	public ResponseEntity<Funcionario> getFuncionarioId(@PathVariable Long id) {
-		Funcionario funcionario = funcionarioRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Funcionario inexistente com id: " + id));
+
+		Funcionario funcionario = funcionarioService.getFuncionarioById(id);
 
 		return ResponseEntity.ok(funcionario);
 	}
@@ -51,19 +50,12 @@ public class FuncionarioControllerRest {
 	 * @return Funcionario
 	 */
 	@PostMapping(FuncionarioUri.FUNCIONARIO_CREATE)
+
 	public Funcionario createFuncionario(@RequestBody Funcionario funcionario) {
-		
-		Funcionario funcionarioCreate = new Funcionario();
-		
-		if(funcionario != null) {
-			funcionarioCreate.setFirstName(funcionario.getFirstName());
-			funcionarioCreate.setLastName(funcionario.getLastName());
-			funcionarioCreate.setEmailId(funcionario.getEmailId());
-			funcionarioCreate.setDataCriacao(funcionario.getDataCriacao());
-			funcionarioCreate.setDataUpate(funcionario.getDataUpate());
-		}
-		
-		return funcionarioRepository.save(funcionarioCreate);
+
+		Funcionario funcionarioCreate = funcionarioService.salvarFuncionario(funcionario);
+
+		return funcionarioCreate;
 	}
 
 	/**
@@ -76,15 +68,7 @@ public class FuncionarioControllerRest {
 	@PutMapping(FuncionarioUri.FUNCIONARIO_UPDATE)
 	public ResponseEntity<Funcionario> updateFuncionario(@PathVariable Long id,
 			@RequestBody Funcionario funcionarioDetalhes) {
-		Funcionario funcionarioUpdate = funcionarioRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Funcionario inexistente com id: " + id));
-
-		funcionarioUpdate.setFirstName(funcionarioDetalhes.getFirstName());
-		funcionarioUpdate.setLastName(funcionarioDetalhes.getLastName());
-		funcionarioUpdate.setEmailId(funcionarioDetalhes.getEmailId());
-
-		funcionarioRepository.save(funcionarioUpdate);
-
+		Funcionario funcionarioUpdate = funcionarioService.updateFuncionarioById(id, funcionarioDetalhes);
 		return ResponseEntity.ok(funcionarioUpdate);
 	}
 
@@ -95,11 +79,7 @@ public class FuncionarioControllerRest {
 	 */
 	@DeleteMapping(FuncionarioUri.FUNCIONARIO_DELETE)
 	public ResponseEntity<HttpStatus> deleteFuncionario(@PathVariable Long id) {
-		Funcionario funcionario = funcionarioRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Funcionario inexistente com o id: " + id));
-
-		funcionarioRepository.delete(funcionario);
-
+		funcionarioService.deleteFuncionarioById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

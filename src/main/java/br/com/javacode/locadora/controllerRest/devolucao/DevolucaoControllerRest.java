@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.javacode.locadora.entity.Devolucao;
-import br.com.javacode.locadora.exception.ResourceNotFoundException;
-import br.com.javacode.locadora.repository.DevolucaoRepository;
+import br.com.javacode.locadora.service.devolucao.DevolucaoService;
 
 @CrossOrigin("*")
 @RestController
@@ -25,11 +24,11 @@ import br.com.javacode.locadora.repository.DevolucaoRepository;
 public class DevolucaoControllerRest {
 
 	@Autowired
-	private DevolucaoRepository devolucaoRepository;
+	DevolucaoService devolucaoService;
 
 	@GetMapping(DevolucaoUri.DEVOLUCOES_FIND_ALL)
-	public List<Devolucao> getAllDevolucoes() {
-		return devolucaoRepository.findAll();
+	public List<Devolucao> getAllDevolucaos() {
+		return devolucaoService.getAllDevolucoes();
 	}
 
 	/**
@@ -38,10 +37,8 @@ public class DevolucaoControllerRest {
 	 */
 	@GetMapping(DevolucaoUri.DEVOLUCAO_FIND_BY_ID)
 	public ResponseEntity<Devolucao> getDevolucaoId(@PathVariable Long id) {
-		Devolucao devolucao = devolucaoRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Devolucao inexistente com id: " + id));
-
-		return ResponseEntity.ok(devolucao);
+		Devolucao Devolucao = devolucaoService.getDevolucaoById(id);
+		return ResponseEntity.ok(Devolucao);
 	}
 
 	/**
@@ -51,23 +48,10 @@ public class DevolucaoControllerRest {
 	 * @return Devolucao
 	 */
 	@PostMapping(DevolucaoUri.DEVOLUCAO_CREATE)
-	public Devolucao createDevolucao(@RequestBody Devolucao devolucao) {
 
-		Devolucao devolucaoCreate = new Devolucao();
-
-		if (devolucao != null) {
-			if (devolucao.getDataHoraDevolucao() != null) {
-				devolucaoCreate.setDataHoraDevolucao(devolucao.getDataHoraDevolucao());
-			}
-			if (devolucao.getQuilometragemDevolucao() != null) {
-				devolucaoCreate.setQuilometragemDevolucao(devolucao.getQuilometragemDevolucao());
-			}
-			if (devolucao.getDevEstadoVeiculo() != null) {
-				devolucaoCreate.setDevEstadoVeiculo(devolucao.getDevEstadoVeiculo());
-			}
-		}
-
-		return devolucaoRepository.save(devolucaoCreate);
+	public Devolucao createDevolucao(@RequestBody Devolucao Devolucao) {
+		Devolucao DevolucaoCreate = devolucaoService.salvarDevolucao(Devolucao);
+		return DevolucaoCreate;
 	}
 
 	/**
@@ -78,25 +62,9 @@ public class DevolucaoControllerRest {
 	 * @return
 	 */
 	@PutMapping(DevolucaoUri.DEVOLUCAO_UPDATE)
-	public ResponseEntity<Devolucao> updateDevolucao(@PathVariable Long id, @RequestBody Devolucao devolucaoDetalhes) {
-		Devolucao devolucaoUpdate = devolucaoRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Devolucao inexistente com id: " + id));
-
-		if (devolucaoDetalhes != null) {
-			if (devolucaoDetalhes.getDataHoraDevolucao() != null) {
-				devolucaoUpdate.setDataHoraDevolucao(devolucaoDetalhes.getDataHoraDevolucao());
-			}
-			if (devolucaoDetalhes.getQuilometragemDevolucao() != null) {
-				devolucaoUpdate.setQuilometragemDevolucao(devolucaoDetalhes.getQuilometragemDevolucao());
-			}
-			if (devolucaoDetalhes.getDevEstadoVeiculo() != null) {
-				devolucaoUpdate.setDevEstadoVeiculo(devolucaoDetalhes.getDevEstadoVeiculo());
-			}
-		}
-
-		devolucaoRepository.save(devolucaoUpdate);
-
-		return ResponseEntity.ok(devolucaoUpdate);
+	public ResponseEntity<Devolucao> updateDevolucao(@PathVariable Long id, @RequestBody Devolucao DevolucaoDetalhes) {
+		Devolucao DevolucaoUpdate = devolucaoService.updateDevolucaoById(id, DevolucaoDetalhes);
+		return ResponseEntity.ok(DevolucaoUpdate);
 	}
 
 	/**
@@ -106,11 +74,7 @@ public class DevolucaoControllerRest {
 	 */
 	@DeleteMapping(DevolucaoUri.DEVOLUCAO_DELETE)
 	public ResponseEntity<HttpStatus> deleteDevolucao(@PathVariable Long id) {
-		Devolucao devolucao = devolucaoRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Devolucao inexistente com o id: " + id));
-
-		devolucaoRepository.delete(devolucao);
-
+		devolucaoService.deleteDevolucaoById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

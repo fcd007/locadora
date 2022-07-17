@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.javacode.locadora.entity.Cliente;
 import br.com.javacode.locadora.exception.ResourceNotFoundException;
 import br.com.javacode.locadora.repository.ClienteRepository;
+import br.com.javacode.locadora.service.cliente.ClienteService;
 
 @CrossOrigin("*")
 @RestController
@@ -25,11 +26,11 @@ import br.com.javacode.locadora.repository.ClienteRepository;
 public class ClienteControllerRest {
 
 	@Autowired
-	private ClienteRepository ClienteRepository;
+	ClienteService clienteService;
 
 	@GetMapping(ClienteUri.CLIENTES_FIND_ALL)
 	public List<Cliente> getAllClientes() {
-		return ClienteRepository.findAll();
+		return clienteService.getAllClientes();
 	}
 
 	/**
@@ -38,9 +39,7 @@ public class ClienteControllerRest {
 	 */
 	@GetMapping(ClienteUri.CLIENTE_FIND_BY_ID)
 	public ResponseEntity<Cliente> getClienteId(@PathVariable Long id) {
-		Cliente cliente = ClienteRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Cliente inexistente com id: " + id));
-
+		Cliente cliente = clienteService.getClienteById(id);
 		return ResponseEntity.ok(cliente);
 	}
 
@@ -52,46 +51,8 @@ public class ClienteControllerRest {
 	 */
 	@PostMapping(ClienteUri.CLIENTE_CREATE)
 	public Cliente createCliente(@RequestBody Cliente cliente) {
-
-		Cliente clienteCreate = new Cliente();
-
-		if (cliente != null) {
-			if (cliente.getNome() != null) {
-				clienteCreate.setNome(cliente.getNome());
-			}
-			if (cliente.getNomeEmpresa() != null) {
-				clienteCreate.setNomeEmpresa(cliente.getNomeEmpresa());
-			}
-			if (cliente.getEndereco() != null) {
-				clienteCreate.setEndereco(cliente.getEndereco());
-			}
-			if (cliente.getTelefone() != null) {
-				clienteCreate.setTelefone((cliente.getTelefone()));
-			}
-			if (cliente.getEmail() != null) {
-				clienteCreate.setEmail(cliente.getEmail());
-			}
-			if (cliente.getCliTipoCliente() != null) {
-				clienteCreate.setCliTipoCliente(cliente.getCliTipoCliente());
-			}
-			if (cliente.getCNPJ() != null) {
-				clienteCreate.setCNPJ(cliente.getCNPJ());
-			}
-			if (cliente.getCPF() != null) {
-				clienteCreate.setCPF(cliente.getCPF());
-			}
-			if (cliente.getDataNacimento() != null) {
-				clienteCreate.setDataNacimento(cliente.getDataNacimento());
-			}
-			if (cliente.getCliSexo() != null) {
-				clienteCreate.setCliSexo(cliente.getCliSexo());
-			}
-			if (cliente.getIdade() != null) {
-				clienteCreate.setIdade(cliente.getIdade());
-			}
-		}
-
-		return ClienteRepository.save(clienteCreate);
+		Cliente clienteCreate = clienteService.salvarCliente(cliente);
+		return clienteCreate;
 	}
 
 	/**
@@ -103,47 +64,7 @@ public class ClienteControllerRest {
 	 */
 	@PutMapping(ClienteUri.CLIENTE_UPDATE)
 	public ResponseEntity<Cliente> updateCliente(@PathVariable Long id, @RequestBody Cliente clienteDetalhes) {
-		Cliente clienteUpdate = ClienteRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Cliente inexistente com id: " + id));
-
-		if (clienteUpdate != null) {
-			if (clienteDetalhes.getNome() != null) {
-				clienteUpdate.setNome(clienteDetalhes.getNome());
-			}
-			if (clienteDetalhes.getNomeEmpresa() != null) {
-				clienteUpdate.setNomeEmpresa(clienteDetalhes.getNomeEmpresa());
-			}
-			if (clienteDetalhes.getEndereco() != null) {
-				clienteUpdate.setEndereco(clienteDetalhes.getEndereco());
-			}
-			if (clienteDetalhes.getTelefone() != null) {
-				clienteUpdate.setTelefone((clienteDetalhes.getTelefone()));
-			}
-			if (clienteDetalhes.getEmail() != null) {
-				clienteUpdate.setEmail(clienteDetalhes.getEmail());
-			}
-			if (clienteDetalhes.getCliTipoCliente() != null) {
-				clienteUpdate.setCliTipoCliente(clienteDetalhes.getCliTipoCliente());
-			}
-			if (clienteDetalhes.getCNPJ() != null) {
-				clienteUpdate.setCNPJ(clienteDetalhes.getCNPJ());
-			}
-			if (clienteDetalhes.getCPF() != null) {
-				clienteUpdate.setCPF(clienteDetalhes.getCPF());
-			}
-			if (clienteDetalhes.getDataNacimento() != null) {
-				clienteUpdate.setDataNacimento(clienteDetalhes.getDataNacimento());
-			}
-			if (clienteDetalhes.getCliSexo() != null) {
-				clienteUpdate.setCliSexo(clienteDetalhes.getCliSexo());
-			}
-			if (clienteDetalhes.getIdade() != null) {
-				clienteUpdate.setIdade(clienteDetalhes.getIdade());
-			}
-		}
-
-		ClienteRepository.save(clienteUpdate);
-
+		Cliente clienteUpdate = clienteService.updateClienteById(id, clienteDetalhes);
 		return ResponseEntity.ok(clienteUpdate);
 	}
 
@@ -154,11 +75,7 @@ public class ClienteControllerRest {
 	 */
 	@DeleteMapping(ClienteUri.CLIENTE_DELETE)
 	public ResponseEntity<HttpStatus> deleteCliente(@PathVariable Long id) {
-		Cliente Cliente = ClienteRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Cliente inexistente com o id: " + id));
-
-		ClienteRepository.delete(Cliente);
-
+		clienteService.deleteClienteById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
