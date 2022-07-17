@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.javacode.locadora.entity.Locacao;
 import br.com.javacode.locadora.exception.ResourceNotFoundException;
-import br.com.javacode.locadora.repository.LocacaoRepository;
+import br.com.javacode.locadora.service.locacao.LocacaoService;
 
 @CrossOrigin("*")
 @RestController
@@ -25,7 +25,7 @@ import br.com.javacode.locadora.repository.LocacaoRepository;
 public class LocacaoControllerRest {
 
 	@Autowired
-	private LocacaoRepository locacaoRepository;
+	private LocacaoService locacaoService;
 
 	/**
 	 * Find all Locacoes
@@ -34,7 +34,7 @@ public class LocacaoControllerRest {
 	 */
 	@GetMapping(LocacaoUri.LOCACOES_FIND_ALL)
 	public List<Locacao> getAllLoccacoes() {
-		return locacaoRepository.findAll();
+		return locacaoService.getAllLocacoes();
 	}
 
 	/**
@@ -43,9 +43,7 @@ public class LocacaoControllerRest {
 	 */
 	@GetMapping(LocacaoUri.LOCACAO_FIND_BY_ID)
 	public ResponseEntity<Locacao> getLocacaoId(@PathVariable Long id) {
-		Locacao locacao = locacaoRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Locacao inexistente com id: " + id));
-
+		Locacao locacao = locacaoService.getLocacaoById(id);
 		return ResponseEntity.ok(locacao);
 	}
 
@@ -57,43 +55,8 @@ public class LocacaoControllerRest {
 	 */
 	@PostMapping(LocacaoUri.LOCACAO_CREATE)
 	public Locacao createLoccacao(@RequestBody Locacao Loccacao) {
-
-		Locacao locacaoCreate = new Locacao();
-
-		if (Loccacao != null) {
-			if (Loccacao.getDataHoraLocacao() != null) {
-				locacaoCreate.setDataHoraLocacao(Loccacao.getDataHoraLocacao());
-			}
-			if (Loccacao.getQuilomentragemLocacao() != null) {
-				locacaoCreate.setQuilomentragemLocacao(Loccacao.getQuilomentragemLocacao());
-			}
-			if (Loccacao.getFinalidade() != null) {
-				locacaoCreate.setFinalidade(Loccacao.getFinalidade());
-			}
-			if (Loccacao.getLocalTrafegagem() != null) {
-				locacaoCreate.setLocalTrafegagem(Loccacao.getLocalTrafegagem());
-			}
-			if (Loccacao.getValorLocacao() != null) {
-				locacaoCreate.setValorLocacao(Loccacao.getValorLocacao());
-			}
-			if (Loccacao.getValorCaucao() != null) {
-				locacaoCreate.setValorCaucao(Loccacao.getValorCaucao());
-			}
-			if (Loccacao.getStatusLocacao() != null) {
-				locacaoCreate.setStatusLocacao(Loccacao.getStatusLocacao());
-			}
-			if (Loccacao.getVeiculo() != null) {
-				locacaoCreate.setVeiculo(Loccacao.getVeiculo());
-			}
-			if (Loccacao.getCliente() != null) {
-				locacaoCreate.setCliente(Loccacao.getCliente());
-			}
-			if (Loccacao.getDevolucao() != null) {
-				locacaoCreate.setDevolucao(Loccacao.getDevolucao());
-			}
-		}
-
-		return locacaoRepository.save(locacaoCreate);
+		Locacao locacao = locacaoService.salvarLocacao(Loccacao);
+		return locacao;
 	}
 
 	/**
@@ -105,42 +68,7 @@ public class LocacaoControllerRest {
 	 */
 	@PutMapping(LocacaoUri.LOCACAO_UPDATE)
 	public ResponseEntity<Locacao> updateLocacao(@PathVariable Long id, @RequestBody Locacao locacaoDetalhes) {
-		Locacao locacaoUpdate = locacaoRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Locacao inexistente com id: " + id));
-
-		if (locacaoDetalhes.getDataHoraLocacao() != null) {
-			locacaoUpdate.setDataHoraLocacao(locacaoDetalhes.getDataHoraLocacao());
-		}
-		if (locacaoDetalhes.getQuilomentragemLocacao() != null) {
-			locacaoUpdate.setQuilomentragemLocacao(locacaoDetalhes.getQuilomentragemLocacao());
-		}
-		if (locacaoDetalhes.getFinalidade() != null) {
-			locacaoUpdate.setFinalidade(locacaoDetalhes.getFinalidade());
-		}
-		if (locacaoDetalhes.getLocalTrafegagem() != null) {
-			locacaoUpdate.setLocalTrafegagem(locacaoDetalhes.getLocalTrafegagem());
-		}
-		if (locacaoDetalhes.getValorLocacao() != null) {
-			locacaoUpdate.setValorLocacao(locacaoDetalhes.getValorLocacao());
-		}
-		if (locacaoDetalhes.getValorCaucao() != null) {
-			locacaoUpdate.setValorCaucao(locacaoDetalhes.getValorCaucao());
-		}
-		if (locacaoDetalhes.getStatusLocacao() != null) {
-			locacaoUpdate.setStatusLocacao(locacaoDetalhes.getStatusLocacao());
-		}
-		if (locacaoDetalhes.getVeiculo() != null) {
-			locacaoUpdate.setVeiculo(locacaoDetalhes.getVeiculo());
-		}
-		if (locacaoDetalhes.getCliente() != null) {
-			locacaoUpdate.setCliente(locacaoDetalhes.getCliente());
-		}
-		if (locacaoDetalhes.getDevolucao() != null) {
-			locacaoUpdate.setDevolucao(locacaoDetalhes.getDevolucao());
-		}
-
-		locacaoRepository.save(locacaoUpdate);
-
+		Locacao locacaoUpdate = locacaoService.updateLocacaoById(id, locacaoDetalhes);
 		return ResponseEntity.ok(locacaoUpdate);
 	}
 
@@ -151,11 +79,7 @@ public class LocacaoControllerRest {
 	 */
 	@DeleteMapping(LocacaoUri.LOCACAO_DELETE)
 	public ResponseEntity<HttpStatus> deleteLocacao(@PathVariable Long id) {
-		Locacao locacao = locacaoRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Locacao inexistente com o id: " + id));
-
-		locacaoRepository.delete(locacao);
-
+		locacaoService.deleteLocacaoById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

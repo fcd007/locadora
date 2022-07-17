@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.javacode.locadora.entity.Funcionario;
+import br.com.javacode.locadora.entity.Locacao;
 import br.com.javacode.locadora.exception.ResourceNotFoundException;
-import br.com.javacode.locadora.repository.FuncionarioRepository;
+import br.com.javacode.locadora.repository.LocacaoRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -15,56 +15,107 @@ import lombok.extern.slf4j.Slf4j;
 public class LocacaoServiceImpl implements LocacaoService {
 
 	@Autowired
-	FuncionarioRepository funcionarioRepository;
+	LocacaoRepository locacaoRepository;
 
 	@Override
-	public List<Funcionario> getAllFuncionarios() {
-		return funcionarioRepository.findAll();
+	public List<Locacao> getAllLocacoes() {
+		return locacaoRepository.findAll();
 	}
 
 	@Override
-	public Funcionario salvarFuncionario(Funcionario funcionario) {
-		Funcionario funcionarioCreate = new Funcionario();
+	public Locacao getLocacaoById(Long id) {
+		Locacao locacao = locacaoRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Locacao inexistente com id: " + id));
+		return locacao;
+	}
 
-		if (funcionario != null) {
-			funcionarioCreate.setFirstName(funcionario.getFirstName());
-			funcionarioCreate.setLastName(funcionario.getLastName());
-			funcionarioCreate.setEmailId(funcionario.getEmailId());
-			funcionarioCreate.setDataCriacao(funcionario.getDataCriacao());
-			funcionarioCreate.setDataUpate(funcionario.getDataUpate());
+	@Override
+	public Locacao salvarLocacao(Locacao locacao) {
+		Locacao locacaoCreate = new Locacao();
+
+		if (locacao != null) {
+			if (locacao.getDataHoraLocacao() != null) {
+				locacaoCreate.setDataHoraLocacao(locacao.getDataHoraLocacao());
+			}
+			if (locacao.getQuilomentragemLocacao() != null) {
+				locacaoCreate.setQuilomentragemLocacao(locacao.getQuilomentragemLocacao());
+			}
+			if (locacao.getFinalidade() != null) {
+				locacaoCreate.setFinalidade(locacao.getFinalidade());
+			}
+			if (locacao.getLocalTrafegagem() != null) {
+				locacaoCreate.setLocalTrafegagem(locacao.getLocalTrafegagem());
+			}
+			if (locacao.getValorLocacao() != null) {
+				locacaoCreate.setValorLocacao(locacao.getValorLocacao());
+			}
+			if (locacao.getValorCaucao() != null) {
+				locacaoCreate.setValorCaucao(locacao.getValorCaucao());
+			}
+			if (locacao.getStatusLocacao() != null) {
+				locacaoCreate.setStatusLocacao(locacao.getStatusLocacao());
+			}
+			if (locacao.getVeiculo() != null) {
+				locacaoCreate.setVeiculo(locacao.getVeiculo());
+			}
+			if (locacao.getCliente() != null) {
+				locacaoCreate.setCliente(locacao.getCliente());
+			}
+			if (locacao.getDevolucao() != null) {
+				locacaoCreate.setDevolucao(locacao.getDevolucao());
+			}
 		}
 
-		return funcionarioRepository.save(funcionarioCreate);
+		return locacaoCreate;
 	}
 
 	@Override
-	public Funcionario getFuncionarioById(Long id) {
-		Funcionario funcionario = funcionarioRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Funcionario inexistente com id: " + id));
-		return funcionario;
-	}
-
-	@Override
-	public Funcionario updateFuncionarioById(Long id, Funcionario funcionarioDetalhes) {
-		Funcionario funcionarioUpdate = funcionarioRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Funcionario inexistente com id: " + id));
-
-		funcionarioUpdate.setFirstName(funcionarioDetalhes.getFirstName());
-		funcionarioUpdate.setLastName(funcionarioDetalhes.getLastName());
-		funcionarioUpdate.setEmailId(funcionarioDetalhes.getEmailId());
-
-		funcionarioRepository.save(funcionarioUpdate);
-
-		return funcionarioUpdate;
-	}
-
-	@Override
-	public Boolean deleteFuncionarioById(Long id) {
-		Funcionario funcionario = funcionarioRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Funcionario inexistente com o id: " + id));
-
-		funcionarioRepository.delete(funcionario);
+	public Boolean deleteLocacaoById(Long id) {
+		Locacao locacao = locacaoRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Locacao inexistente com o id: " + id));
+		locacaoRepository.delete(locacao);
 		return true;
+	}
+
+	@Override
+	public Locacao updateLocacaoById(Long id, Locacao locacaoDetalhes) {
+		Locacao locacaoUpdate = locacaoRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Locacao inexistente com id: " + id));
+
+		if (locacaoDetalhes.getDataHoraLocacao() != null) {
+			locacaoUpdate.setDataHoraLocacao(locacaoDetalhes.getDataHoraLocacao());
+		}
+		if (locacaoDetalhes.getQuilomentragemLocacao() != null) {
+			locacaoUpdate.setQuilomentragemLocacao(locacaoDetalhes.getQuilomentragemLocacao());
+		}
+		if (locacaoDetalhes.getFinalidade() != null) {
+			locacaoUpdate.setFinalidade(locacaoDetalhes.getFinalidade());
+		}
+		if (locacaoDetalhes.getLocalTrafegagem() != null) {
+			locacaoUpdate.setLocalTrafegagem(locacaoDetalhes.getLocalTrafegagem());
+		}
+		if (locacaoDetalhes.getValorLocacao() != null) {
+			locacaoUpdate.setValorLocacao(locacaoDetalhes.getValorLocacao());
+		}
+		if (locacaoDetalhes.getValorCaucao() != null) {
+			locacaoUpdate.setValorCaucao(locacaoDetalhes.getValorCaucao());
+		}
+		if (locacaoDetalhes.getStatusLocacao() != null) {
+			locacaoUpdate.setStatusLocacao(locacaoDetalhes.getStatusLocacao());
+		}
+		if (locacaoDetalhes.getVeiculo() != null) {
+			locacaoUpdate.setVeiculo(locacaoDetalhes.getVeiculo());
+		}
+		if (locacaoDetalhes.getCliente() != null) {
+			locacaoUpdate.setCliente(locacaoDetalhes.getCliente());
+		}
+		if (locacaoDetalhes.getDevolucao() != null) {
+			locacaoUpdate.setDevolucao(locacaoDetalhes.getDevolucao());
+		}
+
+		locacaoRepository.save(locacaoUpdate);
+
+		return locacaoUpdate;
 	}
 
 }

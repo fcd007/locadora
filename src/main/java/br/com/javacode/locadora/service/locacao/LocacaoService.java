@@ -3,16 +3,17 @@ package br.com.javacode.locadora.service.locacao;
 import java.util.List;
 
 import br.com.javacode.locadora.entity.Funcionario;
+import br.com.javacode.locadora.entity.Locacao;
 
 public interface LocacaoService {
 
-	List<Funcionario> getAllFuncionarios();
+	List<Locacao> getAllLocacoes();
 
-	Funcionario getFuncionarioById(Long id);
+	Locacao getLocacaoById(Long id);
 
-	Funcionario salvarFuncionario(Funcionario funcionario);
+	Locacao salvarLocacao(Locacao locacao);
 
-	Boolean deleteFuncionarioById(Long id);
+	Boolean deleteLocacaoById(Long id);
 
-	Funcionario updateFuncionarioById(Long id, Funcionario funcionarioDetalhes);
+	Locacao updateLocacaoById(Long id, Locacao locacaoDetalhes);
 }
