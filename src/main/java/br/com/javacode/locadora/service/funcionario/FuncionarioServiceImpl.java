@@ -41,6 +41,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 	public Funcionario getFuncionarioById(Long id) {
 		Funcionario funcionario = funcionarioRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Funcionario inexistente com id: " + id));
+
 		return funcionario;
 	}
 
@@ -48,7 +49,6 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 	public Funcionario updateFuncionarioById(Long id, Funcionario funcionarioDetalhes) {
 		Funcionario funcionarioUpdate = funcionarioRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Funcionario inexistente com id: " + id));
-
 		funcionarioUpdate.setFirstName(funcionarioDetalhes.getFirstName());
 		funcionarioUpdate.setLastName(funcionarioDetalhes.getLastName());
 		funcionarioUpdate.setEmailId(funcionarioDetalhes.getEmailId());
@@ -64,6 +64,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 				.orElseThrow(() -> new ResourceNotFoundException("Funcionario inexistente com o id: " + id));
 
 		funcionarioRepository.delete(funcionario);
+
 		return true;
 	}
 

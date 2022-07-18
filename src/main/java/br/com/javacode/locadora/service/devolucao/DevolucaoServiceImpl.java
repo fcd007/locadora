@@ -38,13 +38,16 @@ public class DevolucaoServiceImpl implements DevolucaoService {
 			}
 		}
 
-		return devolucaoRepository.save(devolucaoCreate);
+		devolucaoRepository.save(devolucaoCreate);
+
+		return devolucaoCreate;
 	}
 
 	@Override
 	public Devolucao getDevolucaoById(Long id) {
 		Devolucao Devolucao = devolucaoRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Devolucao inexistente com id: " + id));
+
 		return Devolucao;
 	}
 
@@ -76,6 +79,7 @@ public class DevolucaoServiceImpl implements DevolucaoService {
 				.orElseThrow(() -> new ResourceNotFoundException("Devolucao inexistente com o id: " + id));
 
 		devolucaoRepository.delete(Devolucao);
+
 		return true;
 	}
 

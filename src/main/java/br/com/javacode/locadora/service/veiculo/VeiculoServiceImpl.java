@@ -26,6 +26,7 @@ public class VeiculoServiceImpl implements VeiculoService {
 	public Veiculo getVeiculoById(Long id) {
 		Veiculo veiculo = veiculoRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Veiculo inexistente com id: " + id));
+		
 		return veiculo;
 	}
 
@@ -69,6 +70,8 @@ public class VeiculoServiceImpl implements VeiculoService {
 			}
 		}
 
+		veiculoRepository.save(veiculoCreate);
+
 		return veiculoCreate;
 	}
 
@@ -76,7 +79,9 @@ public class VeiculoServiceImpl implements VeiculoService {
 	public Boolean deleteVeiculoById(Long id) {
 		Veiculo veiculo = veiculoRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Veiculo inexistente com o id: " + id));
+		
 		veiculoRepository.delete(veiculo);
+		
 		return true;
 	}
 
@@ -119,7 +124,9 @@ public class VeiculoServiceImpl implements VeiculoService {
 			veiculoUpdate.setValorLocacao(veiculoDetalhes.getValorLocacao());
 		}
 
-		return veiculoRepository.save(veiculoUpdate);
+		veiculoRepository.save(veiculoUpdate);
+
+		return veiculoUpdate;
 	}
 
 }

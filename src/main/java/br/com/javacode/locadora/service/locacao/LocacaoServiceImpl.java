@@ -26,6 +26,7 @@ public class LocacaoServiceImpl implements LocacaoService {
 	public Locacao getLocacaoById(Long id) {
 		Locacao locacao = locacaoRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Locacao inexistente com id: " + id));
+
 		return locacao;
 	}
 
@@ -66,6 +67,8 @@ public class LocacaoServiceImpl implements LocacaoService {
 			}
 		}
 
+		locacaoRepository.save(locacaoCreate);
+
 		return locacaoCreate;
 	}
 
@@ -73,7 +76,9 @@ public class LocacaoServiceImpl implements LocacaoService {
 	public Boolean deleteLocacaoById(Long id) {
 		Locacao locacao = locacaoRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Locacao inexistente com o id: " + id));
+		
 		locacaoRepository.delete(locacao);
+
 		return true;
 	}
 

@@ -62,13 +62,16 @@ public class ClienteServiceImpl implements ClienteService {
 			}
 		}
 
-		return clienteRepository.save(clienteCreate);
+		clienteRepository.save(clienteCreate);
+
+		return clienteCreate;
 	}
 
 	@Override
 	public Cliente getClienteById(Long id) {
 		Cliente cliente = clienteRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Cliente inexistente com id: " + id));
+
 		return cliente;
 	}
 
@@ -113,6 +116,8 @@ public class ClienteServiceImpl implements ClienteService {
 			}
 		}
 
+		clienteRepository.save(clienteUpdate);
+
 		return clienteUpdate;
 	}
 
@@ -122,6 +127,7 @@ public class ClienteServiceImpl implements ClienteService {
 				.orElseThrow(() -> new ResourceNotFoundException("Cliente inexistente com o id: " + id));
 
 		clienteRepository.delete(cliente);
+
 		return true;
 	}
 
