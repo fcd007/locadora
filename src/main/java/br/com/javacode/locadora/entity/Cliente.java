@@ -53,10 +53,10 @@ public class Cliente {
 	@Enumerated(EnumType.STRING)
 	private ClienteTipoEnum cliTipoCliente;
 
-	@Column(name = "cli_cnpj", nullable = true, unique = true, length = 14)
+	@Column(name = "cli_cnpj", nullable = true, unique = true, length = 19)
 	private String CNPJ;
 
-	@Column(name = "cli_cpf", nullable = true, unique = true, length = 11)
+	@Column(name = "cli_cpf", nullable = true, unique = true, length = 15)
 	private String CPF;
 
 	@Column(name = "cli_dat_nascimento", nullable = true)
