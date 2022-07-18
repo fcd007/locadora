@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.javacode.locadora.entity.Funcionario;
 import br.com.javacode.locadora.entity.Veiculo;
 import br.com.javacode.locadora.exception.ResourceNotFoundException;
-import br.com.javacode.locadora.repository.VeiculoRepository;
+import br.com.javacode.locadora.service.veiculo.VeiculoService;
 
 @CrossOrigin("*")
 @RestController
@@ -26,7 +25,7 @@ import br.com.javacode.locadora.repository.VeiculoRepository;
 public class VeiculoControllerRest {
 
 	@Autowired
-	private VeiculoRepository veiculoRepository;
+	private VeiculoService veiculoService;
 
 	/**
 	 * 
@@ -34,7 +33,7 @@ public class VeiculoControllerRest {
 	 */
 	@GetMapping(VeiculoUri.VEICULOS_FIND_ALL)
 	public List<Veiculo> getAllveiculos() {
-		return veiculoRepository.findAll();
+		return veiculoService.getAllVeiculos();
 	}
 
 	/**
@@ -43,9 +42,7 @@ public class VeiculoControllerRest {
 	 */
 	@GetMapping(VeiculoUri.VEICULO_FIND_BY_ID)
 	public ResponseEntity<Veiculo> getVeiculoId(@PathVariable Long id) {
-		Veiculo veiculo = veiculoRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Veiculo inexistente com id: " + id));
-
+		Veiculo veiculo = veiculoService.getVeiculoById(id);
 		return ResponseEntity.ok(veiculo);
 	}
 
@@ -57,46 +54,8 @@ public class VeiculoControllerRest {
 	 */
 	@PostMapping(VeiculoUri.VEICULO_CREATE)
 	public Veiculo createVeiculo(@RequestBody Veiculo veiculo) {
-
-		Veiculo veiculoCreate = new Veiculo();
-
-		if (veiculo != null) {
-			if (veiculo.getPlaca() != null) {
-				veiculoCreate.setPlaca(veiculo.getPlaca());
-			}
-			if (veiculo.getCor() != null) {
-				veiculoCreate.setCor(veiculo.getCor());
-			}
-			if (veiculo.getAnoFabricacao() != null) {
-				veiculoCreate.setAnoFabricacao(veiculo.getAnoFabricacao());
-			}
-			if (veiculo.getModeloDescricao() != null) {
-				veiculoCreate.setModeloDescricao(veiculo.getModeloDescricao());
-			}
-			if (veiculo.getMarcaDescricao() != null) {
-				veiculoCreate.setMarcaDescricao(veiculo.getMarcaDescricao());
-			}
-			if (veiculo.getCombusivel() != null) {
-				veiculoCreate.setCombusivel(veiculo.getCombusivel());
-			}
-			if (veiculo.getNumPortas() != null) {
-				veiculoCreate.setNumPortas(veiculo.getNumPortas());
-			}
-			if (veiculo.getQuilometragem() != null) {
-				veiculoCreate.setQuilometragem(veiculo.getQuilometragem());
-			}
-			if (veiculo.getRenavam() != null) {
-				veiculoCreate.setRenavam(veiculo.getRenavam());
-			}
-			if (veiculo.getChassi() != null) {
-				veiculoCreate.setChassi(veiculo.getChassi());
-			}
-			if (veiculo.getValorLocacao() != null) {
-				veiculoCreate.setValorLocacao(veiculo.getValorLocacao());
-			}
-		}
-
-		return veiculoRepository.save(veiculoCreate);
+		Veiculo veiculoCreate = veiculoService.salvarVeiculo(veiculo);
+		return veiculoCreate;
 	}
 
 	/**
@@ -108,45 +67,7 @@ public class VeiculoControllerRest {
 	 */
 	@PutMapping(VeiculoUri.VEICULO_UPDATE)
 	public ResponseEntity<Veiculo> updateVeiculo(@PathVariable Long id, @RequestBody Veiculo veiculoDetalhes) {
-		Veiculo veiculoUpdate = veiculoRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Veiculo inexistente com id: " + id));
-
-		if (veiculoDetalhes.getPlaca() != null) {
-			veiculoUpdate.setPlaca(veiculoDetalhes.getPlaca());
-		}
-		if (veiculoDetalhes.getCor() != null) {
-			veiculoUpdate.setCor(veiculoDetalhes.getCor());
-		}
-		if (veiculoDetalhes.getAnoFabricacao() != null) {
-			veiculoUpdate.setAnoFabricacao(veiculoDetalhes.getAnoFabricacao());
-		}
-		if (veiculoDetalhes.getModeloDescricao() != null) {
-			veiculoUpdate.setModeloDescricao(veiculoDetalhes.getModeloDescricao());
-		}
-		if (veiculoDetalhes.getMarcaDescricao() != null) {
-			veiculoUpdate.setMarcaDescricao(veiculoDetalhes.getMarcaDescricao());
-		}
-		if (veiculoDetalhes.getCombusivel() != null) {
-			veiculoUpdate.setCombusivel(veiculoDetalhes.getCombusivel());
-		}
-		if (veiculoDetalhes.getNumPortas() != null) {
-			veiculoUpdate.setNumPortas(veiculoDetalhes.getNumPortas());
-		}
-		if (veiculoDetalhes.getQuilometragem() != null) {
-			veiculoUpdate.setQuilometragem(veiculoDetalhes.getQuilometragem());
-		}
-		if (veiculoDetalhes.getRenavam() != null) {
-			veiculoUpdate.setRenavam(veiculoDetalhes.getRenavam());
-		}
-		if (veiculoDetalhes.getChassi() != null) {
-			veiculoUpdate.setChassi(veiculoDetalhes.getChassi());
-		}
-		if (veiculoDetalhes.getValorLocacao() != null) {
-			veiculoUpdate.setValorLocacao(veiculoDetalhes.getValorLocacao());
-		}
-
-		veiculoRepository.save(veiculoUpdate);
-
+		Veiculo veiculoUpdate = veiculoService.updateVeiculoById(id, veiculoDetalhes);
 		return ResponseEntity.ok(veiculoUpdate);
 	}
 
@@ -157,11 +78,7 @@ public class VeiculoControllerRest {
 	 */
 	@DeleteMapping(VeiculoUri.VEICULO_DELETE)
 	public ResponseEntity<HttpStatus> deleteVeiculo(@PathVariable Long id) {
-		Veiculo veiculo = veiculoRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Veiculo inexistente com o id: " + id));
-
-		veiculoRepository.delete(veiculo);
-
+		veiculoService.deleteVeiculoById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

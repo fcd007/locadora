@@ -2,17 +2,17 @@ package br.com.javacode.locadora.service.veiculo;
 
 import java.util.List;
 
-import br.com.javacode.locadora.entity.Funcionario;
+import br.com.javacode.locadora.entity.Veiculo;
 
 public interface VeiculoService {
 
-	List<Funcionario> getAllFuncionarios();
+	List<Veiculo> getAllVeiculos();
 
-	Funcionario getFuncionarioById(Long id);
+	Veiculo getVeiculoById(Long id);
 
-	Funcionario salvarFuncionario(Funcionario funcionario);
+	Veiculo salvarVeiculo(Veiculo veiculo);
 
-	Boolean deleteFuncionarioById(Long id);
+	Boolean deleteVeiculoById(Long id);
 
-	Funcionario updateFuncionarioById(Long id, Funcionario funcionarioDetalhes);
+	Veiculo updateVeiculoById(Long id, Veiculo veiculoDetalhes);
 }
