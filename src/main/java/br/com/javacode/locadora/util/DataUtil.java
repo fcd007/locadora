@@ -295,15 +295,15 @@ public final class DataUtil {
 	 * @param dateToConvert
 	 * @return LocalDate
 	 */
-	public LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
+	public static LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
 		return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 
-	public LocalDate convertToLocalDateViaMilisecond(Date dateToConvert) {
+	public static LocalDate convertToLocalDateViaMilisecond(Date dateToConvert) {
 		return Instant.ofEpochMilli(dateToConvert.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 
-	public LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
+	public static LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
 		return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
 	}
 
@@ -313,44 +313,44 @@ public final class DataUtil {
 	 * @param dateToConvert
 	 * @return LocalDateTime
 	 */
-	public LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
+	public static LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
 		return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 	}
 
-	public LocalDateTime convertToLocalDateTimeViaMilisecond(Date dateToConvert) {
+	public static LocalDateTime convertToLocalDateTimeViaMilisecond(Date dateToConvert) {
 		return Instant.ofEpochMilli(dateToConvert.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
 	}
 
-	public LocalDateTime convertToLocalDateTimeViaSqlTimestamp(Date dateToConvert) {
+	public static LocalDateTime convertToLocalDateTimeViaSqlTimestamp(Date dateToConvert) {
 		return new java.sql.Timestamp(dateToConvert.getTime()).toLocalDateTime();
 	}
 
 	// Convert java.time.LocalDate to java.util.Date
 
-	public Date convertToDateViaSqlDate(LocalDate dateToConvert) {
+	public static Date convertToDateViaSqlDate(LocalDate dateToConvert) {
 		return java.sql.Date.valueOf(dateToConvert);
 	}
 
-	public Date convertToDateViaInstant(LocalDate dateToConvert) {
+	public static Date convertToDateViaInstant(LocalDate dateToConvert) {
 		return java.util.Date.from(dateToConvert.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 	}
 
 	// Convert java.time.LocalDateTime to java.util.Date
-	public Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
+	public static Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
 		return java.sql.Timestamp.valueOf(dateToConvert);
 	}
 
-	Date convertToDateViaInstant(LocalDateTime dateToConvert) {
+	public static Date convertToDateViaInstant(LocalDateTime dateToConvert) {
 		return java.util.Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
 	}
 
 	// Java 9 Additions
 
-	public LocalDate convertToLocalDate(Date dateToConvert) {
+	public static LocalDate convertToLocalDate(Date dateToConvert) {
 		return LocalDate.ofInstant(dateToConvert.toInstant(), ZoneId.systemDefault());
 	}
 
-	public LocalDateTime convertToLocalDateTime(Date dateToConvert) {
+	public static LocalDateTime convertToLocalDateTime(Date dateToConvert) {
 		return LocalDateTime.ofInstant(dateToConvert.toInstant(), ZoneId.systemDefault());
 	}
 }
