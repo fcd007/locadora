@@ -1,23 +1,14 @@
 package br.com.javacode.locadora.mapper;
 
-import org.modelmapper.ModelMapper;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-import br.com.javacode.locadora.dto.DevolucaoDTOV1;
-import br.com.javacode.locadora.entity.Devolucao;
+@Mapper(componentModel = "spring")
+public interface DevolucaoMapperV1 {
 
-public class DevolucaoMapperV1 {
+	DevolucaoMapperV1 INSTANCIA = Mappers.getMapper(DevolucaoMapperV1.class);
 
-	private ModelMapper modelMapper = new ModelMapper();
-
-	public DevolucaoDTOV1 convertToDto(Devolucao devolucao) {
-		DevolucaoDTOV1 devolucaoDTOV1 = modelMapper.map(devolucao, DevolucaoDTOV1.class);
-
-		return devolucaoDTOV1;
-	}
-
-	public Devolucao convertToEntity(DevolucaoDTOV1 DevolucaoDTOV1) {
-		Devolucao devolucao = modelMapper.map(DevolucaoDTOV1, Devolucao.class);
-
-		return devolucao;
+	static DevolucaoMapperV1 devolucaoMapperV1() {
+		return INSTANCIA;
 	}
 }
