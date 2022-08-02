@@ -6,10 +6,10 @@ Projeto Java 11 + ReactJS web full-stack que é um aplicativo básico de gerenci
 
 ### Funcionarios
 - Listar | GET | `/api/v1/funcionarios` | Status Code (200 (OK)) | Busca todos os funcionários
-- Criar | POST | `/api/v1/funcionario` | Status Code (201 (OK)) | criar um novo funcionário
-- Buscar | GET | `/api/v1/funcionario/{id}` | Status Code (200 (OK)) | Buscar funcionário
-- Editar | PUT | `/api/v1/funcionario/{id}` | Status Code (200 (OK)) | Atualizar funcionário
-- Excluir | DELETE | `/api/v1/funcionario/{id}` | Status Code (204 (No Content)) | Deletar funcionário
+- Criar | POST | `/api/v1/funcionarios` | Status Code (201 (OK)) | criar um novo funcionário
+- Buscar | GET | `/api/v1/funcionarios/{id}` | Status Code (200 (OK)) | Buscar funcionário
+- Editar | PUT | `/api/v1/funcionarios/{id}` | Status Code (200 (OK)) | Atualizar funcionário
+- Excluir | DELETE | `/api/v1/funcionarios/{id}` | Status Code (204 (No Content)) | Deletar funcionário
 
 ## Antes de iniciar
 
