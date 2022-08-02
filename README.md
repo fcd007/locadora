@@ -2,7 +2,7 @@
 
 ## Descrição do projeto (Documento ainda em edição de recursos e passo a passo)...
 
-Projeto Java 11 + ReactJS web full-stack que é um aplicativo básico de gerenciamento de locações com recursos CRUD:
+Projeto Java 11 - aplicativo básico de gerenciamento de locações com recursos CRUD:
 
 ### Funcionarios
 - Listar | GET | `/api/v1/funcionarios` | Status Code (200 (OK)) | Busca todos os funcionários
