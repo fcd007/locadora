@@ -31,24 +31,24 @@ public class Funcionario {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "fun_first_name", nullable = true, length = 128)
-	private String firstName;
+	@Column(name = "fun_nome", nullable = true, length = 128)
+	private String nome;
 
-	@Column(name = "fun_last_name", nullable = true, length = 128)
-	private String lastName;
+	@Column(name = "fun_sobrenome", nullable = true, length = 128)
+	private String sobrenome;
 
-	@Column(name = "fun_email_id", nullable = true, length = 64)
-	private String emailId;
+	@Column(name = "fun_email", nullable = true, length = 64)
+	private String email;
 
 	@CreationTimestamp
-	@Column(name = "dat_create")
+	@Column(name = "dat_criacao")
 	private Date dataCriacao;
 
 	@UpdateTimestamp
-	@Column(name = "dat_update")
+	@Column(name = "dat_atualizacao")
 	private Date dataUpate;
 
 	@Version
-	@Column(name = "nro_version")
+	@Column(name = "nro_versao")
 	private Long versao;
 }

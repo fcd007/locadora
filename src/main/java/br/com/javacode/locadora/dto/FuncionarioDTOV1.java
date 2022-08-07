@@ -7,10 +7,10 @@ public class FuncionarioDTOV1 {
 
 	private Long id;
 
-	private String firstName;
+	private String nome;
 
-	private String lastName;
+	private String sobrenome;
 
-	private String emailId;
+	private String email;
 
 }

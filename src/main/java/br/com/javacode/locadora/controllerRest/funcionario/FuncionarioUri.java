@@ -11,15 +11,15 @@ public class FuncionarioUri {
 
 	public static final String API_V1 = "/api/v1/";
 	
-	public static final String FUNCIONARIOS_FIND_ALL = "/funcionarios";
+	public static final String FUNCIONARIOS_FIND_ALL = "/funcionarios/listar";
 
-	public static final String FUNCIONARIO_FIND_BY_ID = "/funcionario/{id}";
+	public static final String FUNCIONARIO_FIND_BY_ID = "/funcionarios/{id}";
 
-	public static final String FUNCIONARIO_CREATE = "/funcionario";
+	public static final String FUNCIONARIO_CREATE = "/funcionarios/salvar";
 	
-	public static final String FUNCIONARIO_UPDATE = "/funcionario/{id}";
+	public static final String FUNCIONARIO_UPDATE = "/funcionarios/{id}";
 
-	public static final String FUNCIONARIO_DELETE = "/funcionario/{id}";
+	public static final String FUNCIONARIO_DELETE = "/funcionarios/{id}";
 
 	public FuncionarioUri(EntityLinks entityLinks) {
 		this.entityLinks = entityLinks;

@@ -50,7 +50,6 @@ public class FuncionarioControllerRest {
 	 * @return Funcionario
 	 */
 	@PostMapping(FuncionarioUri.FUNCIONARIO_CREATE)
-
 	public Funcionario createFuncionario(@RequestBody Funcionario funcionario) {
 
 		Funcionario funcionarioCreate = funcionarioService.salvarFuncionario(funcionario);

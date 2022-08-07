@@ -27,11 +27,9 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 		Funcionario funcionarioCreate = new Funcionario();
 
 		if (funcionario != null) {
-			funcionarioCreate.setFirstName(funcionario.getFirstName());
-			funcionarioCreate.setLastName(funcionario.getLastName());
-			funcionarioCreate.setEmailId(funcionario.getEmailId());
-			funcionarioCreate.setDataCriacao(funcionario.getDataCriacao());
-			funcionarioCreate.setDataUpate(funcionario.getDataUpate());
+			funcionarioCreate.setNome(funcionario.getNome());
+			funcionarioCreate.setSobrenome(funcionario.getSobrenome());
+			funcionarioCreate.setEmail(funcionario.getEmail());
 		}
 
 		return funcionarioRepository.save(funcionarioCreate);
@@ -49,9 +47,9 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 	public Funcionario updateFuncionarioById(Long id, Funcionario funcionarioDetalhes) {
 		Funcionario funcionarioUpdate = funcionarioRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Funcionario inexistente com id: " + id));
-		funcionarioUpdate.setFirstName(funcionarioDetalhes.getFirstName());
-		funcionarioUpdate.setLastName(funcionarioDetalhes.getLastName());
-		funcionarioUpdate.setEmailId(funcionarioDetalhes.getEmailId());
+		funcionarioUpdate.setNome(funcionarioDetalhes.getNome());
+		funcionarioUpdate.setSobrenome(funcionarioDetalhes.getSobrenome());
+		funcionarioUpdate.setEmail(funcionarioDetalhes.getEmail());
 
 		funcionarioRepository.save(funcionarioUpdate);
 
