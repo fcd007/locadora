@@ -1,4 +1,4 @@
-# Projeto Gestão Locação Veículos - full-stack com Spring Boot, Hibernate, PostgreSQL
+# Projeto Gestão Locação Veículos
 
 ## Descrição do projeto (Documento ainda em edição de recursos e passo a passo)...
 
